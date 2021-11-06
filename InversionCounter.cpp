@@ -1,6 +1,10 @@
 
 #include <vector>
 #include <iostream>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
 
 
 // TODO: make headers and pretty this up.
@@ -18,17 +22,17 @@
 
 class InversionCounter {
 public: 
-    // nums passed by ref! Will be mutated.  
+    // vector passed by ref! Will be mutated.  
 // Sorts an entire array and returns its total number of inversions.
-    int SortAndCountInversions(std::vector<int>& nums) {
+    int SortAndCountInversions(std::vector<int>& vector) {
         // base case, array is already sorted and there are no inversions.
-        if (nums.size() == 1)
+        if (vector.size() == 1)
             return 0;
 
         // Split array in half using iterators.
-        std::size_t const halfSize = nums.size() / 2;
-        std::vector<int> lowerSplit(nums.begin(), nums.begin() + halfSize);
-        std::vector<int> upperSplit(nums.begin() + halfSize, nums.end());
+        std::size_t const halfSize = vector.size() / 2;
+        std::vector<int> lowerSplit(vector.begin(), vector.begin() + halfSize);
+        std::vector<int> upperSplit(vector.begin() + halfSize, vector.end());
 
         // recursively sort array.
         int lowerInversions = SortAndCountInversions(lowerSplit);
@@ -37,31 +41,48 @@ public:
         // total inversions is sum of low, hi and split.
         MergeAndCountSolution sol = MergeAndCountInversions(lowerSplit, upperSplit);
         // we can do better here rather than returning a new vector.
-        nums = sol.sortedVector;
-        return lowerInversions + upperInversions + sol.numSplitInversions;
+        vector = sol.sortedVector;
+        return lowerInversions + upperInversions + sol.vectorplitInversions;
     }
 
     // Go through each value in the array and check how many values after the current one 
     // are less than the current one.
-    int BruteForceInvs(std::vector<int>& nums) {
+    int BruteForceInvs(std::vector<int>& vector) {
         int invs = 0;
-        for (int i = 0; i < nums.size() - 1; ++i) {
-            for (int j = i + 1; j < nums.size(); ++j) {
-                if (nums[j] < nums[i])
+        for (int i = 0; i < vector.size() - 1; ++i) {
+            for (int j = i + 1; j < vector.size(); ++j) {
+                if (vector[j] < vector[i])
                     ++invs;
             }
         }
         return invs;
     }
 
+    std::vector<int> parseTextFile(const std::string& nameTextFile){
+        std::ifstream stream { nameTextFile };
+
+        if (!stream) {
+            throw "Nooooooo";
+        }
+
+        std::vector<int> returnVec;
+        int row;
+        while (stream >> row) {
+            returnVec.push_back(row);
+
+        }
+        /// Efficient enough to return by value.
+        return returnVec;
+    };
+
 private: 
     // This could apply to both solutions really, or can use references to reduce instantiated vectors. 
     static struct MergeAndCountSolution {
         std::vector<int> sortedVector;
-        int numSplitInversions;
+        int vectorplitInversions;
     };
 
-    // returns num of split inversions, note that nums is passed by ref! Will be mutated. 
+    // returns num of split inversions, note that vector is passed by ref! Will be mutated. 
     // Merges and sorts two given arrays, assuming those arrays are sorted. Also returns number of split inversions.
     MergeAndCountSolution MergeAndCountInversions(std::vector<int>& lowerSplit, std::vector<int>& upperSplit) {
 
@@ -98,7 +119,7 @@ private:
                 splitInv += lowerSplit.size() - lowerCounter;
             }
         }
-        sol.numSplitInversions = splitInv;
+        sol.vectorplitInversions = splitInv;
         return sol;
     }
 };

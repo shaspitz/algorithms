@@ -22,5 +22,7 @@ int main() {
     numInv = inversionCounter.SortAndCountInversions(vec);
     std::cout << "merge sort: " << numInv;
 
+    std::cout << inversionCounter.parseTextFile("IntegerArray.txt")[10];
+
     return 0;
 }
