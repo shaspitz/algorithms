@@ -10,7 +10,7 @@
 int main() {
     InversionCounter inversionCounter;
     
-    // My fun numbers :)
+    // Dealing with large numbers here, all ints will be represented as usigned longs to prevent overflow or wraparound.
     std::vector<unsigned long> testVec = { 5, 4, 3, 2, 1, 5, 3, 7, 89, 43, 324, 5345, 12, 5, 75, 645, 7, 345, 234, 5, };
 
     // Brute force, O(N^2).
