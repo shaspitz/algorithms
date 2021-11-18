@@ -29,25 +29,25 @@ public:
 		std::vector<int> results(2 * length, 0);
 		for (int bottomCounter = length - 1; bottomCounter >= 0; --bottomCounter) {
 			for (int topCounter = length - 1; topCounter >= 0; --topCounter) {
-				auto interProduct = topInt[topCounter] * bottomInt[bottomCounter];
-				auto resultsCounter = bottomCounter + topCounter;
+				auto interProduct = (topInt[topCounter] - '0') * (bottomInt[bottomCounter] - '0'); // Hanlde ASCII.
+				auto resultsCounter = bottomCounter + topCounter + 1;
 				results[resultsCounter] += interProduct;
 			}
 		}
-		
-		std::string returnString;
-		int resCount = 0;
-		for (int result : results) {
-			int digitCount = 0;
-			while (result != 0) {
-				auto remainder = result % 10;
-				AddValueToString(returnString, resCount + digitCount, remainder);
-				++digitCount;
-				result /= 10;
-			}
-			++resCount;
-		}
 
+		std::string returnString;
+		for (int resCount = results.size() - 1; resCount >= 0; --resCount) {
+			int digitCount = 0;
+			while (results[resCount] != 0) {
+				auto remainder = results[resCount] % 10;
+				// We'll add values to string forwards, then will reverse values at end.
+				auto reverseIndex = results.size() - 1 - resCount + digitCount;
+				AddValueToString(returnString, reverseIndex, remainder);
+				++digitCount;
+				results[resCount] /= 10;
+			}
+		}
+	
 		std::reverse(returnString.begin(), returnString.end());
 		return returnString;
 	}
