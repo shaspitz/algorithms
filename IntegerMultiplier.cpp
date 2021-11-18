@@ -6,7 +6,7 @@
 
 /// <summary>
 /// Algorithms for integer multiplication. 
-/// Uses strings since integers given in problem statement exceed length of what can be hardcoded in C++. 
+/// Uses strings due to the size of integers we're testing against. 
 /// </summary>
 class IntegerMultiplier {
 public:
@@ -23,14 +23,15 @@ public:
 	/// <returns></returns>
 	std::string GradeSchoolMultiplication(const std::string& topInt, const std::string& bottomInt) {
 
-		auto length = GetLength(topInt, bottomInt);
+		auto length = GetNumLength(topInt, bottomInt);
 
 		// Odd, but I'm going to do it this way lol.
 		std::vector<int> results(2 * length, 0);
 		for (int bottomCounter = length - 1; bottomCounter >= 0; --bottomCounter) {
 			for (int topCounter = length - 1; topCounter >= 0; --topCounter) {
 				auto interProduct = topInt[topCounter] * bottomInt[bottomCounter];
-				results[bottomCounter + topCounter] += interProduct;
+				auto resultsCounter = bottomCounter + topCounter;
+				results[resultsCounter] += interProduct;
 			}
 		}
 		
@@ -62,23 +63,24 @@ private:
 		if (value / 10 != 0 || value < 0)
 			throw std::invalid_argument("Value to add must be single digit and positive.");
 		if (stringByRef.size() <= index) {
-			char charValue = static_cast<char>(value);
-			stringByRef += charValue;
+			auto strValue = std::to_string(value);
+			stringByRef.push_back(*strValue.begin());
 		}
 		else {
 			// Value already exists at index. 
-			int currentValue = static_cast<int>(stringByRef[index]);
+			auto currentValue = stringByRef[index] - '0'; // Subtract ASCII 48.
 			int newValue = currentValue + value;
-			stringByRef[index] = newValue % 10;
+			stringByRef[index] = *std::to_string(newValue % 10).begin();
 			if (newValue / 10 != 0)
 				// Carry over. 
 				AddValueToString(stringByRef, index + 1, newValue / 10);
 		}
 	}
 
-	size_t GetLength(const std::string& firstInt, const std::string& secondInt) {
+	size_t GetNumLength(const std::string& firstInt, const std::string& secondInt) {
 		auto length = firstInt.size();
-		if (length != secondInt.size()) throw std::invalid_argument("Integers are assumed to be of same length.");
+		if (length != secondInt.size())
+			throw std::invalid_argument("Integers are assumed to be of same length.");
 		return length;
 	}
 };

@@ -16,7 +16,8 @@ int main() {
 
     IntegerMultiplier intMultiplier; 
     std::string result = intMultiplier.GradeSchoolMultiplication(firstInt, secondInt);
-    std::cout << "Grade school multiplication: " << result << "\n";
+
+    std::cout << "Brute force grade school multiplication result: " << result << "\n";
 
     InversionCounter inversionCounter;
     
