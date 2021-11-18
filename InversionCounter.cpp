@@ -3,15 +3,19 @@
 #include <iostream>
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <string>
 
 
 // TODO: make headers and pretty this up.
 
+// TODO: make a section in the readme of this project that states all the possible optimizations you can make for the code.
+// Biggest example here is using a template and arrays to read data from the text file. 
+
 // TODO: make a base class so that all solutions can be called from a driver. 
 
 // TODO: also (re) code up the solution to assignment #1 for github.  
+
+// TODO: Code up the shortest distance algorithm from week 2 optional videos, closest split pair
 
 // TODO: just use similar coding style to work, even if that's .NET based. Can make a note of that if you'd like. 
 
@@ -79,7 +83,6 @@ public:
         unsigned long row;
         while (stream >> row) {
             returnVec.push_back(row);
-
         }
         return returnVec;
     };
