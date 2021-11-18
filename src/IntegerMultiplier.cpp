@@ -13,6 +13,7 @@ public:
 
 	// TODO: implement karutsuba or generic recursive, potentially with gausses trick. 
 
+	// stuff on github.com
 
 	/// <summary>
 	/// Multiplies two integers stored as strings in O(n^2) time. 
@@ -30,7 +31,7 @@ public:
 		std::vector<int> results(2 * length, 0);
 		for (int bottomCounter = length - 1; bottomCounter >= 0; --bottomCounter) {
 			for (int topCounter = length - 1; topCounter >= 0; --topCounter) {
-				auto interProduct = (topInt[topCounter] - '0') * (bottomInt[bottomCounter] - '0'); // Hanlde ASCII.
+				auto interProduct = (topInt[topCounter] - '0') * (bottomInt[bottomCounter] - '0'); // Handle ASCII.
 				auto resultsCounter = bottomCounter + topCounter + 1;
 				results[resultsCounter] += interProduct;
 			}

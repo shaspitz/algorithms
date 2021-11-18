@@ -139,9 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="InversionCounter.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="IntegerMultiplier.cpp" />
+    <ClCompile Include="src\IntegerMultiplier.cpp" />
+    <ClCompile Include="src\InversionCounter.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

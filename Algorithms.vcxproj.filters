@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\IntegerMultiplier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InversionCounter.cpp">
+    <ClCompile Include="src\InversionCounter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
