@@ -25,7 +25,8 @@ public:
 
 		auto length = GetNumLength(topInt, bottomInt);
 
-		// Odd, but I'm going to do it this way lol.
+		// Results will hold values of any number of digits, where position in array 
+		// denotes the power of ten for each multiplication result. 
 		std::vector<int> results(2 * length, 0);
 		for (int bottomCounter = length - 1; bottomCounter >= 0; --bottomCounter) {
 			for (int topCounter = length - 1; topCounter >= 0; --topCounter) {
@@ -35,12 +36,13 @@ public:
 			}
 		}
 
+		// Iterate through the results vector backwards to add values to each index appropriately. 
 		std::string returnString;
 		for (int resCount = results.size() - 1; resCount >= 0; --resCount) {
 			int digitCount = 0;
 			while (results[resCount] != 0) {
 				auto remainder = results[resCount] % 10;
-				// We'll add values to string forwards, then will reverse values at end.
+				// We'll add values to the return string forwards, then will reverse values at end for final answer.
 				auto reverseIndex = results.size() - 1 - resCount + digitCount;
 				AddValueToString(returnString, reverseIndex, remainder);
 				++digitCount;
@@ -72,7 +74,7 @@ private:
 			int newValue = currentValue + value;
 			stringByRef[index] = *std::to_string(newValue % 10).begin();
 			if (newValue / 10 != 0)
-				// Carry over. 
+				// Carry over to next digit. 
 				AddValueToString(stringByRef, index + 1, newValue / 10);
 		}
 	}
