@@ -3,11 +3,21 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 // do we want headers? eh prob not. 
 #include "InversionCounter.cpp";
+#include "IntegerMultiplier.cpp";
 
 int main() {
+
+    std::string firstInt = "3141592653589793238462643383279502884197169399375105820974944592";
+    std::string secondInt = "2718281828459045235360287471352662497757247093699959574966967627";
+
+    IntegerMultiplier intMultiplier; 
+    std::string result = intMultiplier.GradeSchoolMultiplication(firstInt, secondInt);
+    std::cout << "Grade school multiplication: " << result << "\n";
+
     InversionCounter inversionCounter;
     
     // Dealing with large numbers here, all ints will be represented as usigned longs to prevent overflow or wraparound.

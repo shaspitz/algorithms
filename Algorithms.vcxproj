@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="InversionCounter.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="KaratsubaMultiplier.cpp" />
+    <ClCompile Include="IntegerMultiplier.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
