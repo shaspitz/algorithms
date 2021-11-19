@@ -1,6 +1,5 @@
-
-#include "InversionCounter.cpp"
-#include "IntegerMultiplier.cpp"
+#include "../integer_multiplier.h"
+#include "../inversion_counter.h"
 
 int main() {
     try {
