@@ -5,15 +5,10 @@
 #include <fstream>
 #include <string>
 
-
 // TODO: make headers and pretty this up.
 
 // TODO: make a section in the readme of this project that states all the possible optimizations you can make for the code.
 // Biggest example here is using a template and arrays to read data from the text file. 
-
-// TODO: make a base class so that all solutions can be called from a driver. 
-
-// TODO: also (re) code up the solution to assignment #1 for github.  
 
 // TODO: Code up the shortest distance algorithm from week 2 optional videos, closest split pair
 
@@ -92,9 +87,9 @@ private:
     /// Solution structure containing a sorted vector and it's number of split inversions before the sort. 
     /// TODO: Replace this by not instantiating a new vector. 
     /// </summary>
-    static struct MergeAndCountSolution {
+    struct MergeAndCountSolution {
         std::vector<unsigned long> sortedVector;
-        unsigned long vectorSplitInversions;
+        unsigned long vectorSplitInversions = -1;
     };
 
     /// <summary>
@@ -131,7 +126,7 @@ private:
                 // value in the left array (and implicitly, the value in the right
                 // array is less than all the values in the left array since arrays are sorted).
                 // Increment the inversion counter accordingly.
-                splitInv += lowerSplit.size() - lowerCounter;
+                splitInv += (unsigned long)lowerSplit.size() - lowerCounter;
             }
         }
         sol.vectorSplitInversions = splitInv;
