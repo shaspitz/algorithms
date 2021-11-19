@@ -1,4 +1,4 @@
-#include "inversion_counter.h"
+#include "../inc/inversion_counter.h"
 
 /// <summary>
 /// Sorts an entire array and returns its total number of inversions in O(n * log(n)).

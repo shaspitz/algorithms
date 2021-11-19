@@ -1,4 +1,4 @@
-#include "integer_multiplier.h"
+#include "../inc/integer_multiplier.h"
 
 /// <summary>
 /// Multiplies two integers stored as strings in O(n^2) time. 

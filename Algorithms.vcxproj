@@ -140,13 +140,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="integer_multiplier.cpp" />
-    <ClCompile Include="inversion_counter.cpp" />
+    <ClCompile Include="src\integer_multiplier.cpp" />
+    <ClCompile Include="src\inversion_counter.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="integer_multiplier.h" />
-    <ClInclude Include="inversion_counter.h" />
+    <ClInclude Include="inc\integer_multiplier.h" />
+    <ClInclude Include="inc\inversion_counter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
