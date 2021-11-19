@@ -111,76 +111,94 @@ private:
 		}
 	}
 
+	/// <summary>
+	///	Mathematically adds two input integers represented as strings.  
+	/// </summary>
+	/// <param name="firstInt"></param>
+	/// <param name="secondInt"></param>
+	/// <returns></returns>
 	std::string AddIntStrings(std::string firstInt, std::string secondInt) {
-		int carrier = 0;
-		int bitresult = 0;
-		std::string fullResult;
-		std::string finalResult;
+		int carryOver = 0;
+		int intResult = 0;
+		std::string strResult;
+		std::string returnResult;
 		PadWithZeros(firstInt, secondInt);
 		for (auto i = 0; i < firstInt.size(); i++) {
-			bitresult = firstInt[firstInt.size() - i - 1] - '0' + secondInt[secondInt.size() - i - 1] - '0' + carrier;
-			carrier = 0;
-			if (bitresult > 9) {
-				carrier = 1;
-				bitresult = bitresult - 10;
+			intResult = firstInt[firstInt.size() - i - 1] - '0' + secondInt[secondInt.size() - i - 1] - '0' + carryOver;
+			carryOver = 0;
+			if (intResult > 9) {
+				carryOver = 1;
+				intResult -= 10;
 			}
-			fullResult.push_back(bitresult + '0');
+			strResult.push_back(intResult + '0');
 		}
-		if (carrier == 1)fullResult.push_back('1');
-		for (auto i = 0; i < fullResult.size(); i++) {
-			finalResult.push_back(fullResult[fullResult.size() - i - 1]);
+		if (carryOver == 1) strResult.push_back('1');
+		for (auto i = 0; i < strResult.size(); i++) {
+			returnResult.push_back(strResult[strResult.size() - i - 1]);
 		}
-		auto pos = finalResult.find_first_not_of('0');
-		if (pos != std::string::npos)finalResult = finalResult.substr(pos, finalResult.size() - pos);
-		else finalResult = '0';
-		return finalResult;
+		auto pos = returnResult.find_first_not_of('0');
+		if (pos != std::string::npos) returnResult = returnResult.substr(pos, returnResult.size() - pos);
+		else returnResult = '0';
+		return returnResult;
 	}
 
 	/// <summary>
+	/// Mathematically subtracts two input integers represented as strings. 
 	/// TODO: combine with above method to reduce repeated code. 
 	/// </summary>
 	/// <param name="firstInt"></param>
 	/// <param name="secondInt"></param>
 	/// <returns></returns>
 	std::string SubtractIntStrings(std::string firstInt, std::string secondInt) {
-		int carrier = 0;
-		int bitresult = 0;
-		std::string fullResult;
-		std::string finalResult;
+		int carryOver = 0;
+		int intResult = 0;
+		std::string strResult;
+		std::string returnResult;
 		PadWithZeros(firstInt, secondInt);
 		for (int i = 0; i < firstInt.size(); i++) {
-			bitresult = firstInt[firstInt.size() - i - 1] - secondInt[secondInt.size() - i - 1] - carrier;
-			carrier = 0;
-			if (bitresult < 0) {
-				carrier = 1;
-				bitresult = bitresult + 10;
+			intResult = firstInt[firstInt.size() - i - 1] - secondInt[secondInt.size() - i - 1] - carryOver;
+			carryOver = 0;
+			if (intResult < 0) {
+				carryOver = 1;
+				intResult += 10;
 			}
-			fullResult.push_back(bitresult + '0');
+			strResult.push_back(intResult + '0');
 		}
-		for (int i = 0; i < fullResult.size(); i++) {
-			finalResult.push_back(fullResult[fullResult.size() - i - 1]);
+		for (int i = 0; i < strResult.size(); i++) {
+			returnResult.push_back(strResult[strResult.size() - i - 1]);
 		}
-		int pos = finalResult.find_first_not_of('0');
-		if (pos != std::string::npos)finalResult = finalResult.substr(pos, finalResult.size() - pos);
-		else finalResult = '0';
-		return finalResult;
+		int pos = returnResult.find_first_not_of('0');
+		if (pos != std::string::npos) returnResult = returnResult.substr(pos, returnResult.size() - pos);
+		else returnResult = '0';
+		return returnResult;
 	}
 
-	void PadWithZeros(std::string& num1, std::string& num2) {
-		auto l1 = num1.size();
-		auto l2 = num2.size();
-		if (l1 > l2) {
-			for (auto i = 0; i < l1 - l2; i++) {
-				num2 = ('0' + num2);
+	/// <summary>
+	/// Pads firstInt and secondInt with zeros for subsequent additions or subtractions.
+	/// </summary>
+	/// <param name="num1"></param>
+	/// <param name="num2"></param>
+	void PadWithZeros(std::string& firstInt, std::string& secondInt) {
+		auto firstLen = firstInt.size();
+		auto secondLen = secondInt.size();
+		if (firstLen > secondLen) {
+			for (auto i = 0; i < firstLen - secondLen; i++) {
+				secondInt = ('0' + secondInt);
 			}
 		}
 		else {
-			for (auto i = 0; i < l2 - l1; i++) {
-				num1 = ('0' + num1);
+			for (auto i = 0; i < secondLen - firstLen; i++) {
+				firstInt = ('0' + firstInt);
 			}
 		}
 	}
 
+	/// <summary>
+	/// Mathematically multiplies the baseValue integer (rep as string) by a power of ten specified by exponentValue. 
+	/// </summary>
+	/// <param name="baseValue"></param>
+	/// <param name="exponentValue"></param>
+	/// <returns></returns>
 	std::string PowerOfTenAsString(std::string baseValue, auto exponentValue) {
 		for (auto i = 0; i < exponentValue; ++i) {
 			baseValue += '0';

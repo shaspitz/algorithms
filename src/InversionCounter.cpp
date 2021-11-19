@@ -79,7 +79,6 @@ public:
 private: 
     /// <summary>
     /// Solution structure containing a sorted vector and it's number of split inversions before the sort. 
-    /// TODO: Replace this by not instantiating a new vector. 
     /// </summary>
     struct MergeAndCountSolution {
         std::vector<unsigned long> sortedVector;
