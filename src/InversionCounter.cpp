@@ -5,15 +5,6 @@
 #include <fstream>
 #include <string>
 
-// TODO: make headers and pretty this up.
-
-// TODO: make a section in the readme of this project that states all the possible optimizations you can make for the code.
-// Biggest example here is using a template and arrays to read data from the text file. 
-
-// TODO: Code up the shortest distance algorithm from week 2 optional videos, closest split pair
-
-// TODO: just use similar coding style to work, even if that's .NET based. Can make a note of that if you'd like. 
-
 /// <summary>
 /// Solves the problem of counting the number of inversions in an array in O(n * log(n)). 
 /// </summary>
@@ -39,7 +30,7 @@ public:
         unsigned long upperInversions = SortAndCountInversions(upperSplit);
 
         // total inversions is sum of low, hi and split.
-        MergeAndCountSolution sol = MergeAndCountInversions(lowerSplit, upperSplit);
+        auto sol = MergeAndCountInversions(lowerSplit, upperSplit);
         // we can do better here rather than returning a new vector.
         vector = sol.sortedVector;
         
@@ -71,10 +62,13 @@ public:
         std::ifstream stream { nameTextFile };
 
         if (!stream) {
-            throw "Nooooooo";
+            throw "Error instantiating ifstram for parsing text file";
         }
 
+        // TODO: use arrays and templates throughout this entire class,
+        // since the length of the text file is known. We can at least preallocate. 
         std::vector<unsigned long> returnVec;
+        returnVec.reserve(100000);
         unsigned long row;
         while (stream >> row) {
             returnVec.push_back(row);
@@ -133,3 +127,4 @@ private:
         return sol;
     }
 };
+

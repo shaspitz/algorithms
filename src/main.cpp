@@ -1,8 +1,4 @@
-// main.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-//
 
-// Headers? eh prob not for now. 
 #include "InversionCounter.cpp"
 #include "IntegerMultiplier.cpp"
 
@@ -45,3 +41,4 @@ int main() {
 	}
    return 0;
 }
+
