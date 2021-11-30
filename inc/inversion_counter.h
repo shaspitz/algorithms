@@ -12,7 +12,6 @@ class InversionCounter {
 public:
     unsigned long SortAndCountInversions(std::vector<unsigned long>& vector);
     unsigned long BruteForceInvs(std::vector<unsigned long>& vector);
-    std::vector<unsigned long> parseTextFile(const std::string& nameTextFile);
 private:
     /// <summary>
     /// Solution structure containing a sorted vector and it's number of split inversions before the sort. 

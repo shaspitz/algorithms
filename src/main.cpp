@@ -1,6 +1,31 @@
 #include "../inc/integer_multiplier.h"
 #include "../inc/inversion_counter.h"
 
+namespace Helpers {
+	/// <summary>
+	/// Parse text file for integers separated by newlines.
+	/// </summary>
+	/// <param name="nameTextFile"></param>
+	/// <returns></returns>
+	std::vector<unsigned long> ParseTextFile(const std::string& nameTextFile, int arraySize) {
+		std::ifstream stream{ nameTextFile };
+
+		if (!stream) {
+			throw "Error instantiating ifstram for parsing text file";
+		}
+
+		// TODO: use arrays and templates throughout this entire class,
+		// since the length of the text file is known. We can at least preallocate. 
+		std::vector<unsigned long> returnVec;
+		returnVec.reserve(arraySize);
+		unsigned long row;
+		while (stream >> row) {
+			returnVec.push_back(row);
+		}
+		return returnVec;
+	};
+}
+
 int main() {
     try {
 		// Numbers given in problem statement. 
@@ -28,7 +53,7 @@ int main() {
 		numInv = inversionCounter.SortAndCountInversions(testVec);
 		std::cout << "Merge sort solution, number of inversions in test vec: " << numInv << "\n";
 
-		std::vector<unsigned long> textVec = inversionCounter.parseTextFile("IntegerArray.txt");
+		std::vector<unsigned long> textVec = Helpers::ParseTextFile("IntegerArray.txt", 100000);
 		std::cout << "Merge sort solution, number of inversions in text file: " << inversionCounter.SortAndCountInversions(textVec) << "\n";
 	 
 	} catch (const std::exception& ex) {
@@ -40,4 +65,6 @@ int main() {
 	}
    return 0;
 }
+
+
 

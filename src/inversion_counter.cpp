@@ -43,28 +43,7 @@ unsigned long InversionCounter::BruteForceInvs(std::vector<unsigned long>& vecto
 	return invs;
 }
 
-/// <summary>
-/// Parse text file for integers separated by newlines.
-/// </summary>
-/// <param name="nameTextFile"></param>
-/// <returns></returns>
-std::vector<unsigned long> InversionCounter::parseTextFile(const std::string& nameTextFile) {
-	std::ifstream stream{ nameTextFile };
 
-	if (!stream) {
-		throw "Error instantiating ifstram for parsing text file";
-	}
-
-	// TODO: use arrays and templates throughout this entire class,
-	// since the length of the text file is known. We can at least preallocate. 
-	std::vector<unsigned long> returnVec;
-	returnVec.reserve(100000);
-	unsigned long row;
-	while (stream >> row) {
-		returnVec.push_back(row);
-	}
-	return returnVec;
-};
 
 /// <summary>
 /// Merges and sorts two given arrays, assuming those arrays are sorted. Also returns number of split inversions.
