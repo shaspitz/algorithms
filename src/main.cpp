@@ -1,5 +1,6 @@
 #include "../inc/integer_multiplier.h"
 #include "../inc/inversion_counter.h"
+#include "../inc/quick_sorter.h"
 
 namespace Helpers {
 	/// <summary>
@@ -57,6 +58,9 @@ int main() {
 		std::cout << "Merge sort solution, number of inversions in text file: " << inversionCounter.SortAndCountInversions(mergeSortVector) << "\n";
 
 		std::vector<unsigned long> quickSortVector = Helpers::ParseTextFile("QuickSort.txt", 10000);
+		QuickSorter quickSorter;
+		std::vector<unsigned long> test{ 4, 6, 2, 7, 5, 8, 5, 2, 9 };
+		std::cout << "testing!! median of three: " << quickSorter.ChooseMedianOfThree(test) << "\n";
 	 
 	} catch (const std::exception& ex) {
 		std::cout << "\n" << "std::exception thrown: " << ex.what() << "\n";
