@@ -53,8 +53,10 @@ int main() {
 		numInv = inversionCounter.SortAndCountInversions(testVec);
 		std::cout << "Merge sort solution, number of inversions in test vec: " << numInv << "\n";
 
-		std::vector<unsigned long> textVec = Helpers::ParseTextFile("IntegerArray.txt", 100000);
-		std::cout << "Merge sort solution, number of inversions in text file: " << inversionCounter.SortAndCountInversions(textVec) << "\n";
+		std::vector<unsigned long> mergeSortVector = Helpers::ParseTextFile("IntegerArray.txt", 100000);
+		std::cout << "Merge sort solution, number of inversions in text file: " << inversionCounter.SortAndCountInversions(mergeSortVector) << "\n";
+
+		std::vector<unsigned long> quickSortVector = Helpers::ParseTextFile("QuickSort.txt", 10000);
 	 
 	} catch (const std::exception& ex) {
 		std::cout << "\n" << "std::exception thrown: " << ex.what() << "\n";
