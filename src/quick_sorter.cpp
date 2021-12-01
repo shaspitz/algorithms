@@ -49,7 +49,7 @@ int QuickSorter::ChooseMedianOfThree(const std::vector<unsigned long>& vector) {
 
 	int firstIdx = 0;
 	auto firstElement = vector.front();
-	int middleIdx = vector.size() / 2;
+	int middleIdx = (vector.size() - 1) / 2;
 	auto middleElement = vector[middleIdx];
 	int lastIdx = vector.size() - 1;
 	auto lastElement = vector.back();
