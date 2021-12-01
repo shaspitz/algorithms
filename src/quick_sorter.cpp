@@ -1,10 +1,11 @@
 #include "../inc/quick_sorter.h"
 
-
-
-// TODO: implement quick sort with and without the extra memory requirement.
-
-// Returns number of comparisons as stated in problem. 
+/// <summary>
+/// Sorts an array using the quicksort algorithm according a pivot method. 
+/// </summary>
+/// <param name="vector"></param>
+/// <param name="method"></param>
+/// <returns>The number of comparisons between values needed to sort the array.</returns>
 int QuickSorter::QuickSort(std::vector<unsigned long>& vector, PivotMethod method) {
 
 	auto vecLength = vector.size();
@@ -44,6 +45,11 @@ int QuickSorter::QuickSort(std::vector<unsigned long>& vector, PivotMethod metho
 	return numComparisons;
 }
 
+/// <summary>
+/// Picks the first, last, and median value of an array, and returns the median of those values.
+/// </summary>
+/// <param name="vector"></param>
+/// <returns></returns>
 int QuickSorter::ChooseMedianOfThree(const std::vector<unsigned long>& vector) {
 	if (vector.size() < 3) return 0;
 
@@ -63,7 +69,14 @@ int QuickSorter::ChooseMedianOfThree(const std::vector<unsigned long>& vector) {
 	return middleIdx;
 }
 
-// Partitions in place, can make a simpler algorithm that uses O(n) more memory. 
+/// <summary>
+/// Partitions an array into values that are smaller and larger than a pivot value.
+/// Assumes the pivot value has been placed at the start of the array. Note that
+/// there is a simpler partition algorithm that uses O(n) more memory to copy
+/// values over to a new array.
+/// </summary>
+/// <param name="vector"></param>
+/// <returns></returns>
 int QuickSorter::PartitionSubroutine(std::vector<unsigned long>& vector) {
 	auto pivotElement = vector.front();
 	// Index for leftmost element bigger than pivot, excluding pivot. 

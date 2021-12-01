@@ -66,11 +66,6 @@ int main() {
 		std::cout << "Number of comparisons in quick sort, choosing median of three element as pivot: "
 			<< quickSorter.QuickSort(quickSortVector, QuickSorter::PivotMethod::ChooseMedianOfThree) << "\n";
 
-		// Testing!!! Coursera says I'm wrong. Maybe try the brute force partition? 
-		std::vector<unsigned long> test{ 4, 5, 6, 7, 8, 9, };
-		std::cout << "Number of comparisons in quick sort, choosing median of three element as pivot: "
-			<< quickSorter.QuickSort(test, QuickSorter::PivotMethod::ChooseMedianOfThree) << "\n";
-
 	} catch (const std::exception& ex) {
 		std::cout << "\n" << "std::exception thrown: " << ex.what() << "\n";
 	} catch (const std::string& ex) {
