@@ -59,9 +59,13 @@ int main() {
 
 		std::vector<unsigned long> quickSortVector = Helpers::ParseTextFile("QuickSort.txt", 10000);
 		QuickSorter quickSorter;
-		std::vector<unsigned long> test{ 4, 6, 2, 7, 5, 8, 5, 2, 9 };
-		std::cout << "testing!! median of three: " << quickSorter.ChooseMedianOfThree(test) << "\n";
-	 
+		std::cout << "Number of comparisons in quick sort, always choosing first element as pivot: "
+			<< quickSorter.QuickSort(quickSortVector, QuickSorter::PivotMethod::ChooseFirst) << "\n";
+		std::cout << "Number of comparisons in quick sort, always choosing last element as pivot: "
+			<< quickSorter.QuickSort(quickSortVector, QuickSorter::PivotMethod::ChooseLast) << "\n";
+		std::cout << "Number of comparisons in quick sort, choosing median of three element as pivot: "
+			<< quickSorter.QuickSort(quickSortVector, QuickSorter::PivotMethod::ChooseMedianOfThree) << "\n";
+
 	} catch (const std::exception& ex) {
 		std::cout << "\n" << "std::exception thrown: " << ex.what() << "\n";
 	} catch (const std::string& ex) {
