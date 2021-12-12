@@ -27,6 +27,9 @@
     <ClCompile Include="src\quick_sorter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="min_cut_finder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\integer_multiplier.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\quick_sorter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="min_cut_finder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
