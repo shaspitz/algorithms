@@ -1,6 +1,9 @@
+#include <sstream>
+
 #include "../inc/integer_multiplier.h"
 #include "../inc/inversion_counter.h"
 #include "../inc/quick_sorter.h"
+#include "../inc/graph.h"
 
 namespace Helpers {
 	/// <summary>
@@ -15,8 +18,7 @@ namespace Helpers {
 			throw "Error instantiating ifstram for parsing text file";
 		}
 
-		// TODO: use arrays and templates throughout this entire class,
-		// since the length of the text file is known. We can at least preallocate. 
+		// Since the length of the text file is known, we could use arrays. Or we can at least preallocate space. 
 		std::vector<unsigned long> returnVec;
 		returnVec.reserve(arraySize);
 		unsigned long row;
@@ -25,6 +27,45 @@ namespace Helpers {
 		}
 		return returnVec;
 	};
+
+	/// <summary>
+	/// Overload which parses a text file containing a graph represented as an adjacency list.
+	/// </summary>
+	/// <param name="nameTextFile"></param>
+	/// <returns></returns>
+	Graph ParseTextFile(const std::string& nameTextFile, bool isDirected) {
+		std::ifstream stream{ nameTextFile };
+
+		if (!stream) {
+			throw "Error instantiating ifstram for parsing text file";
+		}
+		Graph graphToReturn(isDirected);
+
+		std::string line;
+		while (getline(stream, line)) {
+			std::istringstream iss{ line };
+			auto startIter = std::istream_iterator<int>(iss);
+			auto endIter = std::istream_iterator<int>();
+
+			// Store first value of line as the tail of each successive edge. 
+			auto tail = startIter;
+			++startIter;
+
+			// First column of text file should contain every node.
+			graphToReturn.AddNode(*tail);
+
+			for (auto iter = startIter; iter != endIter; ++iter) {
+				Graph::Edge edge;
+				edge.Tail = *tail;
+				edge.Head = *iter;
+				graphToReturn.AddEdge(edge);
+			}
+		}
+
+		if (!graphToReturn.VerifyGraphParse())
+			throw "Adjacency list from text file is invalid!";
+		return graphToReturn;
+	}
 }
 
 int main() {

@@ -141,12 +141,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="min_cut_finder.cpp" />
+    <ClCompile Include="src\graph.cpp" />
     <ClCompile Include="src\integer_multiplier.cpp" />
     <ClCompile Include="src\inversion_counter.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\quick_sorter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\graph.h" />
     <ClInclude Include="inc\integer_multiplier.h" />
     <ClInclude Include="inc\inversion_counter.h" />
     <ClInclude Include="inc\quick_sorter.h" />
