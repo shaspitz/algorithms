@@ -98,10 +98,12 @@ void Graph::AddEdge(std::pair<int, int> edge, int numParallelEdges) {
 /// </summary>
 /// <returns></returns>
 Graph::Edge Graph::GetRandomEdge() {
-	// change this to be random eventually.
-	auto numEdges = _edges.size();
+	// Re-seed generator every time. 
+	std::random_device dev;
+	std::mt19937 rng(dev());
+	std::uniform_int_distribution<std::mt19937::result_type> dist(0, _edges.size() - 1);
 	auto edgeIter = _edges.begin();
-	std::advance(edgeIter, _edges.size() / 2);
+	std::advance(edgeIter, dist(rng));
 	return Edge{edgeIter->first.first, edgeIter->first.second};
 }
 
