@@ -27,16 +27,18 @@ void Graph::ContractEdge(const Edge& edge) {
 	auto it = _edges.begin();
 	while (it != _edges.end()) {
 		auto currNodePair = it->first;
-		auto currWeight = it->second;
+		auto currEdgeParams = it->second;
 		if (currNodePair.first == nodeToRemove) {
-			auto replacementPair = std::pair<int, int>{ nodeToReplace, currNodePair.second };
-			AddEdge(replacementPair);
+			Edge replacementEdge = Edge{ nodeToReplace, currNodePair.second };
+			// Keep track of parrellel edges from one thats being deleted. 
+			AddEdge(replacementEdge, currEdgeParams.NumParallelEdges);
+
 			_edges.erase(currNodePair);
 			it = _edges.begin();
 		}
 		else if (currNodePair.second == nodeToRemove) {
-			auto replacementPair = std::pair<int, int>{ currNodePair.first, nodeToReplace };
-			AddEdge(replacementPair);
+			Edge replacementEdge = Edge{ currNodePair.first, nodeToReplace };
+			AddEdge(replacementEdge, currEdgeParams.NumParallelEdges);
 			_edges.erase(currNodePair);
 			it = _edges.begin();
 		}
@@ -67,7 +69,8 @@ bool Graph::VerifyGraphParse() {
 /// Edge is not added to graph if it already exists.
 /// </summary>
 /// <param name="edge"></param>
-void Graph::AddEdge(const Edge& edge) {
+/// <param name="numParallelEdges"></param>
+void Graph::AddEdge(const Edge& edge, int numParallelEdges) {
 	std::pair<int, int> key;
 	if (_isDirected) 
 		key = std::pair<int, int>{ edge.Tail, edge.Head };
@@ -75,16 +78,19 @@ void Graph::AddEdge(const Edge& edge) {
 		// Minmax ensures order is consistent to enforce undirected edges.
 		key = std::minmax(edge.Tail, edge.Head);
 	if (_edges.contains(key))
-		++_edges[key].NumParallelEdges;
-	else _edges[key] = EdgeParameters{};
+		_edges[key].NumParallelEdges += numParallelEdges;
+	else {
+		EdgeParameters params;
+		params.NumParallelEdges = numParallelEdges;
+		_edges[key] = params;
+	}
 }
 
 /// <summary>
 /// Overload for adding an edge as a pair of ints, tail first, then head.
 /// </summary>
-/// <param name="edge"></param>
-void Graph::AddEdge(std::pair<int, int> edge) {
-	AddEdge(Edge{ edge.first, edge.second });
+void Graph::AddEdge(std::pair<int, int> edge, int numParallelEdges) {
+	AddEdge(Edge{ edge.first, edge.second }, numParallelEdges);
 }
 
 /// <summary>

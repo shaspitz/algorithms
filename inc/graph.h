@@ -28,8 +28,8 @@ public:
 	Graph(bool isDirected);
 	void ContractEdge(const Edge& edge);
 	bool VerifyGraphParse();
-	void AddEdge(const Edge& edge);
-	void AddEdge(std::pair<int, int> edge);
+	void AddEdge(const Edge& edge, int numParallelEdges);
+	void AddEdge(std::pair<int, int> edge, int numParallelEdges);
 	Edge GetRandomEdge();
 	int GetFinalEdgeCount();
 private:

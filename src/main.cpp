@@ -57,7 +57,7 @@ namespace Helpers {
 
 			for (auto iter = startIter; iter != endIter; ++iter) {
 				Graph::Edge edge{*tail, *iter};
-				graphToReturn.AddEdge(edge);
+				graphToReturn.AddEdge(edge, 1);
 			}
 		}
 
