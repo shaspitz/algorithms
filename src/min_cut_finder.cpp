@@ -12,5 +12,5 @@ int MinCutFinder::FindMinCuts() {
 		auto randomEdge = _graph.GetRandomEdge();
 		_graph.ContractEdge(randomEdge);
 	}
-	return _graph.GetNumEdges();
+	return _graph.GetFinalEdgeCount();
 }

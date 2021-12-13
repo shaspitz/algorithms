@@ -24,30 +24,26 @@ void Graph::ContractEdge(const Edge& edge) {
 	Nodes.erase(nodeToRemove);
 
 	// Replace all edges that reference the node we're removing, O(N) time complexity. 
-	auto it = _edgesWithWeight.begin();
-	while (it != _edgesWithWeight.end()) {
+	auto it = _edges.begin();
+	while (it != _edges.end()) {
 		auto currNodePair = it->first;
 		auto currWeight = it->second;
 		if (currNodePair.first == nodeToRemove) {
-			// If replacement pair doesn't already exist, add it.
 			auto replacementPair = std::pair<int, int>{ nodeToReplace, currNodePair.second };
-			if (_edgesWithWeight.find(replacementPair) == _edgesWithWeight.end())
-				_edgesWithWeight[replacementPair] = currWeight;
-			_edgesWithWeight.erase(currNodePair);
-			it = _edgesWithWeight.begin();
+			AddEdge(replacementPair);
+			_edges.erase(currNodePair);
+			it = _edges.begin();
 		}
 		else if (currNodePair.second == nodeToRemove) {
-			// If replacement pair doesn't already exist, add it.
 			auto replacementPair = std::pair<int, int>{ currNodePair.first, nodeToReplace };
-			if (_edgesWithWeight.find(replacementPair) == _edgesWithWeight.end())
-				_edgesWithWeight[replacementPair] = currWeight;
-			_edgesWithWeight.erase(currNodePair);
-			it = _edgesWithWeight.begin();
+			AddEdge(replacementPair);
+			_edges.erase(currNodePair);
+			it = _edges.begin();
 		}
 		else ++it;
 	}
 	// Remove self-loops.
-	_edgesWithWeight.erase(std::pair<int, int> {nodeToReplace, nodeToReplace});
+	_edges.erase(std::pair<int, int> {nodeToReplace, nodeToReplace});
 }
 
 /// <summary>
@@ -57,12 +53,14 @@ void Graph::ContractEdge(const Edge& edge) {
 /// <returns></returns>
 bool Graph::VerifyGraphParse() {
 	std::set<int> nodesFromEdges;
-	for (auto it = _edgesWithWeight.begin(); it != _edgesWithWeight.end(); ++it) {
+	for (auto it = _edges.begin(); it != _edges.end(); ++it) {
 		nodesFromEdges.insert(it->first.first);
 		nodesFromEdges.insert(it->first.second);
 	}
 	return nodesFromEdges == Nodes;
 }
+
+
 
 /// <summary>
 /// Adds an edge from the 2nd and onward columns of the text file.
@@ -70,12 +68,23 @@ bool Graph::VerifyGraphParse() {
 /// </summary>
 /// <param name="edge"></param>
 void Graph::AddEdge(const Edge& edge) {
-	if (_isDirected) {
-		std::pair<int, int> key{ edge.Tail, edge.Head };
-		if (!_edgesWithWeight.contains(key))
-			_edgesWithWeight[key] = edge.Weight;
-	}
-	else AddUndirectedEdge(edge);
+	std::pair<int, int> key;
+	if (_isDirected) 
+		key = std::pair<int, int>{ edge.Tail, edge.Head };
+	else 
+		// Minmax ensures order is consistent to enforce undirected edges.
+		key = std::minmax(edge.Tail, edge.Head);
+	if (_edges.contains(key))
+		++_edges[key].NumParallelEdges;
+	else _edges[key] = EdgeParameters{};
+}
+
+/// <summary>
+/// Overload for adding an edge as a pair of ints, tail first, then head.
+/// </summary>
+/// <param name="edge"></param>
+void Graph::AddEdge(std::pair<int, int> edge) {
+	AddEdge(Edge{ edge.first, edge.second });
 }
 
 /// <summary>
@@ -84,28 +93,18 @@ void Graph::AddEdge(const Edge& edge) {
 /// <returns></returns>
 Graph::Edge Graph::GetRandomEdge() {
 	// change this to be random eventually.
-	auto numEdges = _edgesWithWeight.size();
-	auto edgeIter = _edgesWithWeight.begin();
-	std::advance(edgeIter, _edgesWithWeight.size() / 2);
-	Edge edge;
-	edge.Tail = edgeIter->first.first;
-	edge.Head = edgeIter->first.second;
-	edge.Weight = edgeIter->second;
-	return edge;
-}
-
-size_t Graph::GetNumEdges() {
-	return _edgesWithWeight.size();
+	auto numEdges = _edges.size();
+	auto edgeIter = _edges.begin();
+	std::advance(edgeIter, _edges.size() / 2);
+	return Edge{edgeIter->first.first, edgeIter->first.second};
 }
 
 /// <summary>
-/// Adds an edge in an unordered fashion. Edge is not added to graph if it already exists.
+/// Returns the number of parallel edges in the final contraced graph.
+/// Assumes there is only one edge remaining in the graph.
 /// </summary>
-/// <param name="edge"></param>
-void Graph::AddUndirectedEdge(const Edge& edge) {
-	if (_isDirected) throw "dont do that, you want an undirected edge";
-	// Minmax ensures order is consistent to enforce undirected edges.
-	auto key = std::minmax(edge.Tail, edge.Head);
-	if (!_edgesWithWeight.contains(key))
-		_edgesWithWeight[key] = edge.Weight;
+/// <returns></returns>
+int Graph::GetFinalEdgeCount() {
+	if (_edges.size() != 1) return -1;
+	return _edges.begin()->second.NumParallelEdges;
 }

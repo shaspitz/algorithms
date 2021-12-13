@@ -14,6 +14,14 @@ public:
 	struct Edge {
 		int Tail = -1;
 		int Head = -1;
+		Edge(int tail, int head) {
+			Tail = tail;
+			Head = head;
+		}
+	};
+
+	struct EdgeParameters {
+		int NumParallelEdges = 1;
 		float Weight = 1;
 	};
 	std::set<int> Nodes;
@@ -21,14 +29,14 @@ public:
 	void ContractEdge(const Edge& edge);
 	bool VerifyGraphParse();
 	void AddEdge(const Edge& edge);
+	void AddEdge(std::pair<int, int> edge);
 	Edge GetRandomEdge();
-	size_t GetNumEdges();
+	int GetFinalEdgeCount();
 private:
-	void AddUndirectedEdge(const Edge& edge);
 	bool _isDirected;
 	/// <summary>
 	/// Edges represented by a map, where each key is a pair of nodes
-	/// where tail is listed first. Each value is the weight of that edge.
+	/// where tail is listed first.
 	/// </summary>
-	std::map<std::pair<int, int>, float> _edgesWithWeight;
+	std::map<std::pair<int, int>, EdgeParameters> _edges;
 };

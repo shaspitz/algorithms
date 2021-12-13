@@ -56,9 +56,7 @@ namespace Helpers {
 			graphToReturn.Nodes.insert(*tail);
 
 			for (auto iter = startIter; iter != endIter; ++iter) {
-				Graph::Edge edge;
-				edge.Tail = *tail;
-				edge.Head = *iter;
+				Graph::Edge edge{*tail, *iter};
 				graphToReturn.AddEdge(edge);
 			}
 		}
