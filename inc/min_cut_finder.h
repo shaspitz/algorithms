@@ -2,8 +2,14 @@
 
 #include <iostream>
 
+#include "graph.h"
+
+class Graph;
+
 class MinCutFinder {
 public:
+	MinCutFinder(const Graph& graph);
+	int FindMinCuts();
 private:
-	//Contract Graph.
+	Graph _graph;
 };

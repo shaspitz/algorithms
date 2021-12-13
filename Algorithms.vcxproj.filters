@@ -27,10 +27,10 @@
     <ClCompile Include="src\quick_sorter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="min_cut_finder.cpp">
+    <ClCompile Include="src\graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graph.cpp">
+    <ClCompile Include="src\min_cut_finder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +44,10 @@
     <ClInclude Include="inc\quick_sorter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="min_cut_finder.h">
+    <ClInclude Include="inc\graph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\graph.h">
+    <ClInclude Include="inc\min_cut_finder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

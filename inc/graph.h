@@ -8,7 +8,6 @@
 
 /// <summary>
 /// Simple graph class where nodes are represented as integers.
-/// Various safety checks are skipped in this implementation and could be added later. 
 /// </summary>
 class Graph {
 public:
@@ -17,14 +16,19 @@ public:
 		int Head = -1;
 		float Weight = 1;
 	};
+	std::set<int> Nodes;
 	Graph(bool isDirected);
+	void ContractEdge(const Edge& edge);
 	bool VerifyGraphParse();
-	void AddNode(int node);
-	void AddEdge(Edge edge);
+	void AddEdge(const Edge& edge);
+	Edge GetRandomEdge();
+	size_t GetNumEdges();
 private:
-	void AddUndirectedEdge(Edge edge);
+	void AddUndirectedEdge(const Edge& edge);
 	bool _isDirected;
+	/// <summary>
+	/// Edges represented by a map, where each key is a pair of nodes
+	/// where tail is listed first. Each value is the weight of that edge.
+	/// </summary>
 	std::map<std::pair<int, int>, float> _edgesWithWeight;
-	std::set<int> _nodes;
-	void ContractEdge(Edge edge);
 };

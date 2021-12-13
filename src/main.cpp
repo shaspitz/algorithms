@@ -4,6 +4,7 @@
 #include "../inc/inversion_counter.h"
 #include "../inc/quick_sorter.h"
 #include "../inc/graph.h"
+#include "../inc/min_cut_finder.h"
 
 namespace Helpers {
 	/// <summary>
@@ -52,7 +53,7 @@ namespace Helpers {
 			++startIter;
 
 			// First column of text file should contain every node.
-			graphToReturn.AddNode(*tail);
+			graphToReturn.Nodes.insert(*tail);
 
 			for (auto iter = startIter; iter != endIter; ++iter) {
 				Graph::Edge edge;
@@ -70,6 +71,11 @@ namespace Helpers {
 
 int main() {
     try {
+
+		Graph graph = Helpers::ParseTextFile("MinCutAdjList.txt", false);
+		MinCutFinder minCutFinder{graph};
+		std::cout << minCutFinder.FindMinCuts();
+
 		// Numbers given in problem statement. 
 		std::string firstInt = "3141592653589793238462643383279502884197169399375105820974944592";
 		std::string secondInt = "2718281828459045235360287471352662497757247093699959574966967627";
