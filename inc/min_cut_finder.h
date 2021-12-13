@@ -8,8 +8,6 @@ class Graph;
 
 class MinCutFinder {
 public:
-	MinCutFinder(const Graph& graph);
-	int FindMinCuts(int numIterations);
+	int FindMinCuts(const Graph& graph, int numIterations);
 private:
-	Graph _graph;
 };

@@ -2,12 +2,6 @@
 #include "../inc/min_cut_finder.h"
 
 /// <summary>
-/// Standard constructor with graph parameter.
-/// </summary>
-/// <param name="graph"></param>
-MinCutFinder::MinCutFinder(const Graph& graph) : _graph{ graph } {}
-
-/// <summary>
 /// Note that this min cut algorithm does not return the correct solution every time.
 /// But instead has a probability of success. Running the algorithm multiple times and
 /// storing the min solution for the number of graph cuts returns a correct solution
@@ -16,14 +10,17 @@ MinCutFinder::MinCutFinder(const Graph& graph) : _graph{ graph } {}
 /// </summary>
 /// <param name="numIterations"></param>
 /// <returns></returns>
-int MinCutFinder::FindMinCuts(int numIterations) {
+int MinCutFinder::FindMinCuts(const Graph& graph, int numIterations) {
 	int minOfMins = INT_MAX;
 	for (auto i = 0; i < numIterations; ++i) {
-		while (_graph.Nodes.size() > 2) {
-			auto randomEdge = _graph.GetRandomEdge();
-			_graph.ContractEdge(randomEdge);
+		Graph graphCopy{ graph };
+		while (graphCopy.Nodes.size() > 2) {
+			if (graphCopy.Nodes.size() == 100)
+				bool test = 0;
+			auto randomEdge = graphCopy.GetRandomEdge();
+			graphCopy.ContractEdge(randomEdge);
 		}
-		minOfMins = std::min(minOfMins, _graph.GetFinalEdgeCount());
+		minOfMins = std::min(minOfMins, graphCopy.GetFinalEdgeCount());
 	}
 	return minOfMins;
 }

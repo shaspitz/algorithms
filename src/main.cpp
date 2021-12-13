@@ -107,8 +107,8 @@ int main() {
 			<< quickSorter.QuickSort(quickSortVector, QuickSorter::PivotMethod::ChooseMedianOfThree) << "\n";
 
 		Graph graph = Helpers::ParseTextFile("MinCutAdjList.txt", false);
-		MinCutFinder minCutFinder{graph};
-		std::cout << "Number of min cuts in adj list graph (1000 iterations): " << minCutFinder.FindMinCuts(1000) << "\n";
+		MinCutFinder minCutFinder;
+		std::cout << "Number of min cuts in adj list graph (10 iterations): " << minCutFinder.FindMinCuts(graph, 100) << "\n";
 
 	} catch (const std::exception& ex) {
 		std::cout << "\n" << "std::exception thrown: " << ex.what() << "\n";
