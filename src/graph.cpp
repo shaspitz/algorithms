@@ -23,24 +23,28 @@ void Graph::ContractEdge(const Edge& edge) {
 	auto nodeToReplace = orderedPair.first;
 	Nodes.erase(nodeToRemove);
 
-	// Replace all edges that reference the node we're removing. 
-	for (auto it = _edgesWithWeight.begin(); it != _edgesWithWeight.end(); ++it) {
+	// Replace all edges that reference the node we're removing, O(N) time complexity. 
+	auto it = _edgesWithWeight.begin();
+	while (it != _edgesWithWeight.end()) {
 		auto currNodePair = it->first;
 		auto currWeight = it->second;
 		if (currNodePair.first == nodeToRemove) {
-			_edgesWithWeight.erase(currNodePair);
 			// If replacement pair doesn't already exist, add it.
 			auto replacementPair = std::pair<int, int>{ nodeToReplace, currNodePair.second };
 			if (_edgesWithWeight.find(replacementPair) == _edgesWithWeight.end())
 				_edgesWithWeight[replacementPair] = currWeight;
-		}
-		if (currNodePair.second == nodeToRemove) {
 			_edgesWithWeight.erase(currNodePair);
+			it = _edgesWithWeight.begin();
+		}
+		else if (currNodePair.second == nodeToRemove) {
 			// If replacement pair doesn't already exist, add it.
-			auto replacementPair = std::pair<int, int>{ currNodePair.first, nodeToReplace};
+			auto replacementPair = std::pair<int, int>{ currNodePair.first, nodeToReplace };
 			if (_edgesWithWeight.find(replacementPair) == _edgesWithWeight.end())
 				_edgesWithWeight[replacementPair] = currWeight;
+			_edgesWithWeight.erase(currNodePair);
+			it = _edgesWithWeight.begin();
 		}
+		else ++it;
 	}
 	// Remove self-loops.
 	_edgesWithWeight.erase(std::pair<int, int> {nodeToReplace, nodeToReplace});
@@ -80,7 +84,9 @@ void Graph::AddEdge(const Edge& edge) {
 /// <returns></returns>
 Graph::Edge Graph::GetRandomEdge() {
 	// change this to be random eventually.
+	auto numEdges = _edgesWithWeight.size();
 	auto edgeIter = _edgesWithWeight.begin();
+	std::advance(edgeIter, _edgesWithWeight.size() / 2);
 	Edge edge;
 	edge.Tail = edgeIter->first.first;
 	edge.Head = edgeIter->first.second;

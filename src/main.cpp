@@ -71,11 +71,6 @@ namespace Helpers {
 
 int main() {
     try {
-
-		Graph graph = Helpers::ParseTextFile("MinCutAdjList.txt", false);
-		MinCutFinder minCutFinder{graph};
-		std::cout << minCutFinder.FindMinCuts();
-
 		// Numbers given in problem statement. 
 		std::string firstInt = "3141592653589793238462643383279502884197169399375105820974944592";
 		std::string secondInt = "2718281828459045235360287471352662497757247093699959574966967627";
@@ -112,6 +107,10 @@ int main() {
 			<< quickSorter.QuickSort(quickSortVector, QuickSorter::PivotMethod::ChooseLast) << "\n";
 		std::cout << "Number of comparisons in quick sort, choosing median of three element as pivot: "
 			<< quickSorter.QuickSort(quickSortVector, QuickSorter::PivotMethod::ChooseMedianOfThree) << "\n";
+
+		Graph graph = Helpers::ParseTextFile("MinCutAdjList.txt", false);
+		MinCutFinder minCutFinder{graph};
+		std::cout << "Number of min cuts in adj list graph: " << minCutFinder.FindMinCuts() << "\n";
 
 	} catch (const std::exception& ex) {
 		std::cout << "\n" << "std::exception thrown: " << ex.what() << "\n";
